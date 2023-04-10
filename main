@@ -1,0 +1,23 @@
+from gtts import gTTS
+from PyPDF2 import PdfReader
+
+# create a PdfReader object (include path)
+reader = PdfReader("...pdf")
+
+# extract text from entire PDF file
+page_number = 0
+text = ""
+for i in range(len(reader.pages)):
+    page = reader.pages[i]
+    text += page.extract_text()
+
+
+# configure the AI voice & speed (<1 is faster, >1 is slower)
+tts = gTTS(text, lang='en')
+tts.speed = .65
+
+# save the audio to a file (include path)
+tts.save('...mp3')
+
+# ensure that the text extracted properly
+print("Text extracted:", text)
